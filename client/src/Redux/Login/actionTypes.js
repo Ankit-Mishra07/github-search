@@ -1,0 +1,2 @@
+export const LOGINUSERS = "LOGINUSERS"
+export const LOGGEDSUCCESS="LOGGEDSUCCESS"
