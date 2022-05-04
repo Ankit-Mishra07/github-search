@@ -23,13 +23,13 @@ const Navbar = ({mode, setMode}) => {
   const handleSearch = () => {
     console.log("handleSearch")
   }
-  useEffect(() => {
-    fetch(`https://api.github.com/search/users?q=${loggedUser}&page=1&per_page=2`)
-    .then(res=>res.json())
-    .then(res=>{
-      dispatch(getCurrentuserData(res.items[0]))
-    })
-  },[])
+  // useEffect(() => {
+  //   fetch(`https://api.github.com/search/users?q=${loggedUser}&page=1&per_page=2`)
+  //   .then(res=>res.json())
+  //   .then(res=>{
+  //     dispatch(getCurrentuserData(res.items[0]))
+  //   })
+  // },[])
   return (
     <>
       <AppBar position="sticky">

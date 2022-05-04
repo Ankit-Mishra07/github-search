@@ -14,11 +14,7 @@ const Routing = () => {
         <Login/>
         </PrivateRoute>
         }></Route>
-        <Route path='/home' element={
-        
-        <Home />
-        
-        }></Route>
+        <Route path='/home' element={<Home />}></Route>
     </Routes>
     </>
   )
