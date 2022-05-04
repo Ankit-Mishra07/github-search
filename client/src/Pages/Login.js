@@ -37,11 +37,13 @@ const Login = () => {
           
           <div className={styles.form_Box} >
             <form className={styles.form} onSubmit={e=>handleSubmit(e)}>
+                <span>
                 <input className={styles.searchipt} value={val} type="text" onChange={(e) => {
                   setVal(e.target.value)
                   handleChange(e.target.value)
                 }} />
                 <Search />
+                </span>
                 <Button style={{backgroundColor:"none", color:"white"}} type="submit">Enter</Button>
             </form>
 

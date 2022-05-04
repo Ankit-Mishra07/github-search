@@ -25,11 +25,13 @@
     background-color: #24292F;
     border: none;
     outline: none;
-    border-bottom: 1px solid whitesmoke;
     padding: 10px;
     padding-left: 0;
     font-size: 16px;
 
+}
+.form > span {
+    border-bottom: 1px solid whitesmoke;
 }
 .searchipt{
     color: whitesmoke;
