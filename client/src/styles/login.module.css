@@ -14,31 +14,24 @@
 
 .form_Box{
     width: 50%;
+    transition: All 1s ease;
 }
 .form {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    transition:All 0.5s ease;
 }
-.form > input {
+
+.form > span {
+    border-bottom: 1px solid whitesmoke;
+    margin-left: 0;
+}
+.searchipt{
     color: whitesmoke;
     background-color: #24292F;
     border: none;
     outline: none;
-    padding: 10px;
-    padding-left: 0;
-    font-size: 16px;
-
-}
-.form > span {
-    border-bottom: 1px solid whitesmoke;
-}
-.searchipt{
-    color: whitesmoke;
-    background-color: none;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid whitesmoke;
     padding: 10px;
     padding-bottom: 12px;
     padding-left: 0;
@@ -54,7 +47,17 @@
         text-align: center;
         margin: auto;
     }
-    .form{
-     justify-content: center;
+    .form > span {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
+
 }
+
+@media only screen and (max-width:600px) {
+    .form_Box {
+        width:90%;
+        margin: auto;
+    }
+} 
