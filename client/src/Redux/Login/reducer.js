@@ -1,11 +1,10 @@
 import { handleGetCookie, handleSetCookie } from "../../utils/cook";
-import { getLocal, setLocal } from "../../utils/localstorage";
 import { LOGINUSERS } from "./actionTypes";
 import {LOGGEDSUCCESS} from './actionTypes';
 const init = {
     Users : [],
     isloading:true,
-    loggedUser : handleGetCookie("gitUser") || ""
+    loggedUser : handleGetCookie("gituser") || ""
 }
 
 export const logReducer = (state=init, {type, payload}) => {
@@ -13,11 +12,14 @@ export const logReducer = (state=init, {type, payload}) => {
         case LOGINUSERS:
             return {
                 Users:[...payload],
-                isloading:false
+                isloading:false,
+                loggedUser:handleGetCookie("gituser") || ""
             }
         case LOGGEDSUCCESS:
+            handleSetCookie("gituser",payload)
             return {
-                loggedUser:handleSetCookie(payload)
+                ...state,
+                loggedUser:handleGetCookie("gituser"),
             }
         default :
             return state

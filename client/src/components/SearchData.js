@@ -29,9 +29,7 @@ const SearchData = ({Users, setVal}) => {
 
   const handleValue = (el) => {
     setVal(el)
-    console.log("handlelogin", el)
   }
-  console.log("searchdata", Users)
   return (
     <Cont>
   {

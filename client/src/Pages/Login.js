@@ -4,13 +4,15 @@ import {Search, Send} from "@mui/icons-material"
 import ReactTypingEffect from 'react-typing-effect';
 import styles from '../styles/login.module.css'
 import {useSelector, useDispatch} from 'react-redux'
-import { loginUsers } from "../Redux/Login/action";
+import { loggedSuccess, loginUsers } from "../Redux/Login/action";
 import SearchData from "../components/SearchData";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
 
   const [val, setVal] = useState("")
-  const {Users} = useSelector(state => state.logState)
+  const {Users, loggedUser} = useSelector(state => state.logState)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSearch = () => {
     if(val==="" || !val) return;
@@ -19,11 +21,15 @@ const Login = () => {
     .then(res => res.json())
     .then(res => {
         dispatch(loginUsers(res.items))
-        console.log("redux",Users)
     })
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(loggedSuccess(val));
+    if(loggedUser) {
+      navigate("/home")
+    }
+
   }
   return (
     <>
@@ -49,7 +55,7 @@ const Login = () => {
             </form>
 
 
-       {Users.length==0 &&<Box sx={{color:"whitesmoke", fontWeight:100, fontSize:16}}>
+       {Users.length===0 &&<Box sx={{color:"whitesmoke", fontWeight:100, fontSize:16}}>
         <ReactTypingEffect
         text={["Please Enter Your GitHub Username !!"]}
       />
