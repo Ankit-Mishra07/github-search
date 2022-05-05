@@ -19,11 +19,13 @@ const Styledbox = styled(Box)(({theme}) => ({
 
 const Home = () => {
   const [repopage, setRepopage] = useState(1)
+  const [feedpage, setFeedpage] = useState(1)
   const [val, setVal] = useState("")
   const [mode, setMode] = useState("light")
 
   const {loggedUser} = useSelector(state=>state.logState);
   const {repos, repouser} = useSelector(state=> state.reposState);
+  const {feeduser, feedData} = useSelector(state => state.feedState)
   const dispatch = useDispatch()
 
   const darkTheme = createTheme({
@@ -62,6 +64,16 @@ const Home = () => {
     })
   },[])
 
+  useEffect(() => {
+    if(feeduser!=="") {
+    fetch(`https://api.github.com/search/users?q=${feeduser}&page=${feedpage}&per_page=2`)
+    .then(res=> res.json())
+    .then(res => {
+      dispatch(getfeedData(res.items))
+      console.log('resfeed', res.items)
+    })
+    }
+  },[feeduser, feedpage])
   
   return (
     <>
@@ -71,7 +83,7 @@ const Home = () => {
 
       <Styledbox >
         <Sidebar getLoggedUserRepo={getLoggedUserRepo} setRepopage={setRepopage} repopage={repopage}/>
-        <Feed />
+        <Feed feedpage={feedpage} setFeedpage={setFeedpage}/>
         <Rightbar />
       </Styledbox>
 

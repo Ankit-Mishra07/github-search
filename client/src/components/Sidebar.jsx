@@ -25,7 +25,7 @@ const Sidebar = ({getLoggedUserRepo, setRepopage, repopage}) => {
   const dispatch = useDispatch()
   return (
     <Box flex={1}
-    p={2} sx={{}}>
+    p={2} >
     
     <Box sx={{display:"flex", flexDirection:"column", alignItems:"center", marginBottom:3}}>
     <Typography>{repouser}'s Repositories</Typography>

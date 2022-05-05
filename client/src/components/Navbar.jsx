@@ -3,6 +3,7 @@ import {AppBar, Box, styled,Toolbar, Avatar, Button} from '@mui/material'
 import {GitHub, Search,DarkMode, LightMode} from '@mui/icons-material'
 import {useDispatch, useSelector} from 'react-redux'
 import { getCurrentuserData } from '../Redux/Home/CurrentUser/action'
+import { getFeedUser } from '../Redux/Home/Feed/action'
 const StyledToolbar = styled(Toolbar) (({theme}) => ({
   display:"flex",
   justifyContent:"space-between"
@@ -18,8 +19,9 @@ const StyledInput = styled("input")(({theme}) => ({
 const Navbar = ({mode, setMode, val, setVal}) => {
 
   const {user, followers} = useSelector(state=>state.curUserState);
+  const dispatch = useDispatch()
   const handleSearch = () => {
-    console.log("handleSearch")
+    dispatch(getFeedUser(val))
   }
 
   return (
@@ -36,6 +38,9 @@ const Navbar = ({mode, setMode, val, setVal}) => {
             />
             <Button
             variant="primary"
+            onClick={() => {
+              handleSearch()
+            }}
             ><Search/></Button>
           </Box>
 
