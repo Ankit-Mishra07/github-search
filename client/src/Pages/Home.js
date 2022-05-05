@@ -43,10 +43,10 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetch(`https://api.github.com/search/users?q=${loggedUser}&page=1&per_page=2`)
+    fetch(`https://api.github.com/users/${loggedUser}`)
     .then(res=>res.json())
     .then(res=>{
-      dispatch(getCurrentuserData(res.items[0]))
+      dispatch(getCurrentuserData(res))
       
     })
 
