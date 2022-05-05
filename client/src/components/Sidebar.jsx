@@ -45,7 +45,7 @@ const Sidebar = ({getLoggedUserRepo, setRepopage, repopage, forSide, setForSide,
       {
         repos.map((el) => (
           <Link href={el.html_url} underline="none" target="_blank">
-          <Button variant="contained" sx={{width:"100%", marginBottom:"4px"}} endIcon={<GitHub />}>{el.name}</Button>
+          <Button variant="contained" sx={{width:"100%", marginBottom:"8px"}} endIcon={<GitHub />}>{el.name}</Button>
           </Link>
         ))
       }

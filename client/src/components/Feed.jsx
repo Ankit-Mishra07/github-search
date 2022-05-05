@@ -11,7 +11,7 @@ const ButtonBox = styled(Box)(({theme}) => ({
   margin:"20px 5px"
 }))
 const Feed = ({setFeedpage, feedpage, handleUserProfile, forSide, setForSide, forRight, setForRight, forFeed, setForFeed}) => {
-  const {feedData, feeduser} = useSelector(state=>state.feedState)
+  const {feedData, feeduser} = useSelector(state=>state.feedState);
   const {repos, repouser} = useSelector(state=> state.reposState);
   const dispatch = useDispatch();
 

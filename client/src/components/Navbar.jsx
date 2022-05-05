@@ -36,7 +36,7 @@ const Navbar = ({mode, setMode, val, setVal, myPic, handleUserProfile, setForFee
             <GitHub />
           </Box>
 
-          <Box variant="span" sx={{display:"flex", alignItems:"center", width:"35%"}}>
+          <Box variant="span" sx={{display:"flex", alignItems:"center", width:{xs:"50%",sm:"35%"}}}>
             <StyledInput placeholder='search...'
               onChange={(e)=>setVal(e.target.value)}
             />

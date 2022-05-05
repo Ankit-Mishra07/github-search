@@ -43,7 +43,7 @@ const Home = () => {
   })
 
   const getLoggedUserRepo = (user) => {
-      fetch(`https://api.github.com/users/${user}/repos?page=${repopage}&per_page=2`)
+      fetch(`https://api.github.com/users/${user}/repos?page=${repopage}&per_page=6`)
       .then(res => res.json())
       .then(res => {
         dispatch(getSideRepos(res))
