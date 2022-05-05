@@ -17,10 +17,12 @@ const Styledbox = styled(Box)(({theme}) => ({
 }))
 
 const Home = () => {
-
+  const [repopage, setRepopage] = useState(1)
   const [val, setVal] = useState("")
-  const {loggedUser} = useSelector(state=>state.logState);
   const [mode, setMode] = useState("light")
+
+  const {loggedUser} = useSelector(state=>state.logState);
+  const {repos, repouser} = useSelector(state=> state.reposState);
   const dispatch = useDispatch()
 
   const darkTheme = createTheme({
@@ -30,7 +32,7 @@ const Home = () => {
   })
 
   const getLoggedUserRepo = (user) => {
-      fetch(`https://api.github.com/users/${user}/repos?page=1&per_page=2`)
+      fetch(`https://api.github.com/users/${user}/repos?page=${repopage}&per_page=2`)
       .then(res => res.json())
       .then(res => {
         dispatch(getSideRepos(res))
@@ -42,10 +44,14 @@ const Home = () => {
     .then(res=>res.json())
     .then(res=>{
       dispatch(getCurrentuserData(res.items[0]))
-      getLoggedUserRepo(loggedUser)
+      
     })
 
   },[])
+
+  useEffect(() => {
+    getLoggedUserRepo(repouser)
+  },[repopage])
 
   
   return (
@@ -55,7 +61,7 @@ const Home = () => {
       <Navbar mode={mode} setMode={setMode} val={val} setVal={setVal}/>
 
       <Styledbox >
-        <Sidebar />
+        <Sidebar getLoggedUserRepo={getLoggedUserRepo} setRepopage={setRepopage} repopage={repopage}/>
         <Feed />
         <Rightbar />
       </Styledbox>

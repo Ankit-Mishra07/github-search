@@ -17,10 +17,10 @@ const ButtonBox = styled(Box)(({theme}) => ({
   alignItems:"center",
   width:"100%"
 }))
-const Sidebar = () => {
+const Sidebar = ({getLoggedUserRepo, setRepopage, repopage}) => {
   const {repos, repouser} = useSelector(state=> state.reposState);
   const {loggedUser} = useSelector(state=>state.logState);
-
+  
   return (
     <Box flex={1}
     p={2} sx={{}}>
@@ -40,8 +40,16 @@ const Sidebar = () => {
       }
 
       <ButtonBox>
-        <Button>Prev</Button>
-        <Button>Next</Button>
+        <Button onClick={() => {
+
+          setRepopage(repopage<=1 ? 1 : repopage-1)
+          }} disabled={repopage===1?true:false}>Prev</Button>
+        <Button
+        onClick={() => {
+          setRepopage(repopage+1)
+        }}
+        disabled={(repos.length===0)?true:false}
+        >Next</Button>
       </ButtonBox>
 
     </StyledReposBox>
