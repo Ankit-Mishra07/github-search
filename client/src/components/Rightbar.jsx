@@ -1,17 +1,17 @@
 import { Box,Typography,List,ListItem,ListItemButton, ListItemIcon,ListItemText, Avatar, Button } from '@mui/material'
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {Business, LocationOn, Link, Twitter, Group} from '@mui/icons-material'
+import {Business, LocationOn, Link, Twitter, Group, ArrowCircleLeft} from '@mui/icons-material'
 
-const Rightbar = () => {
+const Rightbar = ({forSide, setForSide, forRight, setForRight, forFeed, setForFeed}) => {
   const {user} = useSelector(state=> state.curUserState)
-  console.log("user", user)
   return (
-    <Box flex={1} sx={{padding:3}} >
+    <Box flex={1} sx={{padding:3, display:{xs:forRight,md:"block", lg:"block"},height:{xs:"90vh", md:"inherit"}}}>
       <Typography fontWeight={200} sx={{textAlign:"center"}}>{user.login} Profile</Typography>
 
       <Box>
         <Avatar src={user.avatar_url} sx={{width:100, height:100, margin:"auto"}} />
+        <Typography fontWeight={400} sx={{textAlign:"center"}}>{user.bio}</Typography>
         <Button  startIcon={<Group />} 
         sx={{textTransform:"lowercase", fontSize:14,width:"100%"}}
         >{user.followers}followers - {user.following}following
@@ -62,6 +62,11 @@ const Rightbar = () => {
           }
           </List>
       </Box>
+        <Button sx={{ display:{xs:"block",md:"none", lg:"none"}}} onClick={() => {
+          setForFeed("block")
+          setForRight("none")
+          setForSide("none")
+        }}><ArrowCircleLeft/></Button>
 
     </Box>
   )

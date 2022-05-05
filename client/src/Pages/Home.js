@@ -26,7 +26,15 @@ const Home = () => {
   const {loggedUser} = useSelector(state=>state.logState);
   const {repos, repouser} = useSelector(state=> state.reposState);
   const {feeduser, feedData} = useSelector(state => state.feedState)
+
+  const [myPic, setMyPic] = useState({})
   const dispatch = useDispatch()
+
+  /// states for visibilities
+  const [forSide, setForSide] = useState("none") 
+  const [forRight, setForRight] = useState("none") 
+  const [forFeed, setForFeed] = useState("block") 
+
 
   const darkTheme = createTheme({
     palette : {
@@ -42,19 +50,32 @@ const Home = () => {
       })
   }
 
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${loggedUser}`)
+  const handleUserProfile = (user) => {
+    fetch(`https://api.github.com/users/${user}`)
     .then(res=>res.json())
     .then(res=>{
       dispatch(getCurrentuserData(res))
-      
     })
+  }
 
+
+
+  useEffect(() => {
+    handleUserProfile(loggedUser)
+    fetch(`https://api.github.com/users/${loggedUser}`)
+    .then(res=>res.json())
+    .then(res=>{
+      setMyPic(res)
+    })
   },[])
+
+  
 
   useEffect(() => {
     getLoggedUserRepo(repouser)
   },[repopage, repouser])
+
+
 
   useEffect(() => {
     fetch(`https://api.github.com/users/${loggedUser}/followers`)
@@ -79,12 +100,39 @@ const Home = () => {
     <>
       <ThemeProvider theme={darkTheme}>
       <Box bgcolor={"background.default"} color={"text.primary"} sx={{padding:0, margin:0}}>
-      <Navbar mode={mode} setMode={setMode} val={val} setVal={setVal}/>
+      <Navbar mode={mode} setMode={setMode} val={val} setVal={setVal} myPic={myPic}
+      handleUserProfile={handleUserProfile}
+      setForFeed={setForFeed}
+      setForRight={setForRight}
+      setForSide={setForSide}
+      />
 
       <Styledbox >
-        <Sidebar getLoggedUserRepo={getLoggedUserRepo} setRepopage={setRepopage} repopage={repopage}/>
-        <Feed feedpage={feedpage} setFeedpage={setFeedpage}/>
-        <Rightbar />
+        <Sidebar getLoggedUserRepo={getLoggedUserRepo} setRepopage={setRepopage} repopage={repopage}
+        forSide={forSide}
+        setForSide={setForSide}
+        forRight={forRight}
+        setForRight={setForRight}
+        forFeed={forFeed}
+        setForFeed={setForFeed}
+        />
+        <Feed feedpage={feedpage} setFeedpage={setFeedpage}
+        handleUserProfile={handleUserProfile}
+        forSide={forSide}
+        setForSide={setForSide}
+        forRight={forRight}
+        setForRight={setForRight}
+        forFeed={forFeed}
+        setForFeed={setForFeed}
+        />
+        <Rightbar
+            forSide={forSide}
+            setForSide={setForSide}
+            forRight={forRight}
+            setForRight={setForRight}
+            forFeed={forFeed}
+            setForFeed={setForFeed}
+        />
       </Styledbox>
 
       </Box>

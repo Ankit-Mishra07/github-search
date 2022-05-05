@@ -1,7 +1,7 @@
 import { Box, Button, Link, styled, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector , useDispatch} from 'react-redux'
-import {GitHub} from '@mui/icons-material'
+import {GitHub, ArrowCircleLeft} from '@mui/icons-material'
 import { getRepoUser } from '../Redux/Home/SideBarRepo/action'
 
 const StyledReposBox = styled(Box)(({theme}) => ({
@@ -9,7 +9,10 @@ const StyledReposBox = styled(Box)(({theme}) => ({
   position:"relative",
   [theme.breakpoints.up("md")]:{
     height:400
-  }
+  },
+  height:400,
+  borderRadius:theme.shape.borderRadius
+
 }))
 const ButtonBox = styled(Box)(({theme}) => ({
   position:"absolute",
@@ -19,13 +22,15 @@ const ButtonBox = styled(Box)(({theme}) => ({
   alignItems:"center",
   width:"100%"
 }))
-const Sidebar = ({getLoggedUserRepo, setRepopage, repopage}) => {
+const Sidebar = ({getLoggedUserRepo, setRepopage, repopage, forSide, setForSide, forRight, setForRight, forFeed, setForFeed}) => {
   const {repos, repouser} = useSelector(state=> state.reposState);
   const {loggedUser} = useSelector(state=>state.logState);
   const dispatch = useDispatch()
   return (
     <Box flex={1}
-    p={2} >
+    p={2} 
+    sx={{display:{xs:forSide,md:"block", lg:"block"}, height:{xs:"90vh", md:"inherit"}}}
+    >
     
     <Box sx={{display:"flex", flexDirection:"column", alignItems:"center", marginBottom:3}}>
     <Typography>{repouser}'s Repositories</Typography>
@@ -40,7 +45,7 @@ const Sidebar = ({getLoggedUserRepo, setRepopage, repopage}) => {
       {
         repos.map((el) => (
           <Link href={el.html_url} underline="none" target="_blank">
-          <Button variant="contained" sx={{width:"100%", marginBottom:"2px"}} endIcon={<GitHub />}>{el.name}</Button>
+          <Button variant="contained" sx={{width:"100%", marginBottom:"4px"}} endIcon={<GitHub />}>{el.name}</Button>
           </Link>
         ))
       }
@@ -60,7 +65,13 @@ const Sidebar = ({getLoggedUserRepo, setRepopage, repopage}) => {
 
     </StyledReposBox>
     
-
+        <Button sx={{ display:{xs:"block",md:"none", lg:"none"}}} 
+        onClick={() => {
+          setForFeed("block")
+          setForRight("none")
+          setForSide("none")
+        }}
+        ><ArrowCircleLeft/></Button>
     </Box>
   )
 }
