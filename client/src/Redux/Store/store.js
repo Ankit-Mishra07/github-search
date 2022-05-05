@@ -1,10 +1,12 @@
 import {combineReducers, createStore} from 'redux'
 import { curUserReducer } from '../Home/CurrentUser/reducer'
+import { repoReducer } from '../Home/SideBarRepo/reducer'
 import { logReducer } from '../Login/reducer'
 
 const rootReducer = combineReducers({
     logState : logReducer,
-    curUserState:curUserReducer
+    curUserState:curUserReducer,
+    reposState : repoReducer
 })
 
 
