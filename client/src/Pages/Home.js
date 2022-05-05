@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar'
 import Rightbar from '../components/Rightbar'
 import Sidebar from '../components/Sidebar'
 import { getCurrentuserData } from '../Redux/Home/CurrentUser/action'
+import { getfeedData } from '../Redux/Home/Feed/action'
 import { getSideRepos } from '../Redux/Home/SideBarRepo/action'
 
 const Styledbox = styled(Box)(({theme}) => ({
@@ -51,7 +52,15 @@ const Home = () => {
 
   useEffect(() => {
     getLoggedUserRepo(repouser)
-  },[repopage])
+  },[repopage, repouser])
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${loggedUser}/followers`)
+    .then(res=>res.json())
+    .then(res=>{
+      dispatch(getfeedData(res))
+    })
+  },[])
 
   
   return (
