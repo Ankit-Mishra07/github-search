@@ -26,6 +26,9 @@ const Navbar = ({mode, setMode, val, setVal, myPic, handleUserProfile, setForFee
 
   const handleSearch = () => {
     dispatch(getFeedUser(val))
+    setForFeed("block")
+    setForRight("none")
+    setForSide("none")
   }
 
   return (

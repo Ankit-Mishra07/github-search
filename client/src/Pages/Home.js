@@ -161,9 +161,7 @@ const Home = () => {
 
     <Logout sx={{position :"fixed", right:"5%", bottom:"5%", cursor:"pointer"}} color="error" onClick={() => {
             dispatch(loggedSuccess(""));
-            if(loggedUser==="") {
-              navigate("/")
-            }
+              navigate("/");
       }}/> 
       <Footer />
       </ThemeProvider>
