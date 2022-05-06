@@ -25,6 +25,8 @@ const Login = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(val==="")return;
+    
     dispatch(loggedSuccess(val));
     if(loggedUser) {
       navigate("/home")

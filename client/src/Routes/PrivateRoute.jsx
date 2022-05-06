@@ -6,7 +6,9 @@ const PrivateRoute = ({children}) => {
     if(loggedUser !== "") {
         return <Navigate to="/home" />
     }
-  return children;
+  return (
+    children
+    )
 }
 
 export default PrivateRoute

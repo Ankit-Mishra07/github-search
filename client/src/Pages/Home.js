@@ -1,13 +1,17 @@
-import { Box, createTheme, Stack, styled, ThemeProvider } from '@mui/material'
+import { Box, createTheme, styled, ThemeProvider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Feed from '../components/Feed'
+import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Rightbar from '../components/Rightbar'
 import Sidebar from '../components/Sidebar'
 import { getCurrentuserData } from '../Redux/Home/CurrentUser/action'
 import { getfeedData } from '../Redux/Home/Feed/action'
 import { getSideRepos } from '../Redux/Home/SideBarRepo/action'
+import {Logout} from '@mui/icons-material'
+import { loggedSuccess } from '../Redux/Login/action'
+import { useNavigate } from 'react-router-dom'
 
 const Styledbox = styled(Box)(({theme}) => ({
     display:"flex",
@@ -35,7 +39,7 @@ const Home = () => {
   const [forRight, setForRight] = useState("none") 
   const [forFeed, setForFeed] = useState("block") 
 
-
+  const navigate = useNavigate()
   const darkTheme = createTheme({
     palette : {
       mode:mode
@@ -136,6 +140,14 @@ const Home = () => {
       </Styledbox>
 
       </Box>
+
+      <Logout sx={{position :"fixed", right:"5%", bottom:"5%", cursor:"pointer"}} color="error" onClick={() => {
+            dispatch(loggedSuccess(""));
+            if(loggedUser==="") {
+              navigate("/")
+            }
+      }}/>
+      <Footer />
       </ThemeProvider>
     </>
   )
