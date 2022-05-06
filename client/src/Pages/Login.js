@@ -7,6 +7,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import { loggedSuccess, loginUsers } from "../Redux/Login/action";
 import SearchData from "../components/SearchData";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 const Login = () => {
 
   const [val, setVal] = useState("")
@@ -71,6 +72,8 @@ const Login = () => {
 
         <Avatar alt="Remy Sharp" src="log.gif" sx={{ width: {lg:240, md:140,sm:100, xs:90}, height: {lg:240,md:140,sm:100, xs:90} }}/>
         </div>
+      <Footer />
+
       </div>
     </>
   );

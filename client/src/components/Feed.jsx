@@ -19,7 +19,7 @@ const Feed = ({setFeedpage, feedpage, handleUserProfile, forSide, setForSide, fo
     <Box flex={2} sx={{position:"relative",display:{xs:forFeed,md:"block", lg:"block"}}}>
         {
           feedData.map((el) => (
-            <Card sx={{ minWidth: 320 , marginTop:3}}>
+            <Card sx={{ minWidth: 320 , marginTop:3}} key={el.id}>
             <CardMedia
               component="img"
               alt={el.login}

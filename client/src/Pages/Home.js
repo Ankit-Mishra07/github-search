@@ -28,8 +28,8 @@ const Home = () => {
   const [mode, setMode] = useState("light")
 
   const {loggedUser} = useSelector(state=>state.logState);
-  const {repos, repouser} = useSelector(state=> state.reposState);
-  const {feeduser, feedData} = useSelector(state => state.feedState)
+  const { repouser} = useSelector(state=> state.reposState);
+  const {feeduser} = useSelector(state => state.feedState)
 
   const [myPic, setMyPic] = useState({})
   const dispatch = useDispatch()
@@ -45,6 +45,9 @@ const Home = () => {
       mode:mode
     }
   })
+
+
+  /// Functions
 
   const getLoggedUserRepo = (user) => {
       fetch(`https://api.github.com/users/${user}/repos?page=${repopage}&per_page=6`)
@@ -63,24 +66,50 @@ const Home = () => {
   }
 
 
-
-  useEffect(() => {
-    handleUserProfile(loggedUser)
+  const temp = () => {
     fetch(`https://api.github.com/users/${loggedUser}`)
     .then(res=>res.json())
     .then(res=>{
       setMyPic(res)
     })
-  },[])
+  }
 
   
 
+  
+
+  /// USE-Effects
+
+  
+  
+  ///Get repos dynamically
   useEffect(() => {
     getLoggedUserRepo(repouser)
-  },[repopage, repouser])
+  },[repouser, repopage])
+  
+  /// Get feeddata dynamically
+  useEffect(() => {
+    if(feeduser!=="") {
+      fetch(`https://api.github.com/search/users?q=${feeduser}&page=${feedpage}&per_page=2`)
+      .then(res=> res.json())
+      .then(res => {
+        dispatch(getfeedData(res.items))
+      })
+    }
+  },[feeduser, feedpage])
+  
+  /// getting current user
+  useEffect(() => {
+    handleUserProfile(loggedUser)
+  },[])
 
+  /// setting my profile
+  useEffect(() => {
+    temp()
+  }, [])
+  
 
-
+  /// Get feed data as followers
   useEffect(() => {
     fetch(`https://api.github.com/users/${loggedUser}/followers`)
     .then(res=>res.json())
@@ -88,17 +117,6 @@ const Home = () => {
       dispatch(getfeedData(res))
     })
   },[])
-
-  useEffect(() => {
-    if(feeduser!=="") {
-    fetch(`https://api.github.com/search/users?q=${feeduser}&page=${feedpage}&per_page=2`)
-    .then(res=> res.json())
-    .then(res => {
-      dispatch(getfeedData(res.items))
-      console.log('resfeed', res.items)
-    })
-    }
-  },[feeduser, feedpage])
   
   return (
     <>
@@ -141,12 +159,12 @@ const Home = () => {
 
       </Box>
 
-      <Logout sx={{position :"fixed", right:"5%", bottom:"5%", cursor:"pointer"}} color="error" onClick={() => {
+    <Logout sx={{position :"fixed", right:"5%", bottom:"5%", cursor:"pointer"}} color="error" onClick={() => {
             dispatch(loggedSuccess(""));
             if(loggedUser==="") {
               navigate("/")
             }
-      }}/>
+      }}/> 
       <Footer />
       </ThemeProvider>
     </>
