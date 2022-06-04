@@ -1,6 +1,6 @@
-<h1 align="center">Weather App</h1> 
+<h1 align="center">GitHub User Search</h1> 
 
-<h2 align="center">Web application to show the current and upcoming week weather forecast.</h2>    
+<h2 align="center"></h2>    
 
 <br />
 <p align="center">
